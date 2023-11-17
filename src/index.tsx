@@ -23,7 +23,7 @@ export default function Command() {
 
   return (
     <List
-      navigationTitle="Search for tokens"
+      navigationTitle="Atlassian Design Tokens (version 1.28.1)"
       searchBarAccessory={
         <ColorThemeDropdown
           onChange={(mode) => {
