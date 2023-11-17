@@ -15,14 +15,14 @@
   "commands": [
     {
       "name": "index",
-      "title": "Explore Design Tokens",
+      "title": "Atlassian Design Tokens",
       "subtitle": "View and search all Atlassian design tokens",
       "description": "Shows a list of all design tokens, along with details on usage and other metadata",
       "mode": "view"
     }
   ],
   "dependencies": {
-    "@atlaskit/tokens": "^1.28.1",
+    "@atlaskit/tokens": "^  ",
     "@raycast/api": "^1.62.0"
   },
   "devDependencies": {

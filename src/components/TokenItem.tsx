@@ -60,10 +60,19 @@ export const TokenItem = ({
     displayIcon = { source: Icon.CircleFilled, tintColor: displayValue as string };
   }
 
+  let baseToken = undefined;
+  if (typeof token.original.value === "string") {
+    if (token.attributes.group === "paint" && colorTheme === "dark") {
+      baseToken = dark[index].original.value as string;
+    } else {
+      baseToken = token.original.value;
+    }
+  }
+
   // ✨ Accessorise ✨
   let accessories: List.Item.Props["accessories"] = [{ tag: { value: token.attributes.group } }];
-  if (typeof token.original.value === "string") {
-    accessories = [{ tag: { value: token.original.value.toString() } }, ...accessories];
+  if (baseToken) {
+    accessories = [{ tag: { value: baseToken } }, ...accessories];
   }
   if (token.attributes.state !== "active") {
     accessories = [
