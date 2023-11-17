@@ -12,6 +12,12 @@ const tokenMap = [
   { name: "Shape", tokens: shape },
 ];
 
+/**
+ *
+ * Command
+ *
+ * The main component for this command.
+ */
 export default function Command() {
   const [colorTheme, setcolorTheme] = useState<colorTheme>("light");
 

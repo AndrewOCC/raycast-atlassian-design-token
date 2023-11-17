@@ -2,6 +2,16 @@ import { ActionPanel, Action, Icon } from "@raycast/api";
 import { light, dark } from "@atlaskit/tokens/tokens-raw";
 import { TokenDetails } from "./TokenDetails";
 
+/**
+ *
+ * TokenActionPanel
+ *
+ * A component used to render the action panel for a token.
+ * @param showDetailAction - Whether to show the detail action
+ * @param token - The token metadata (from its default theme)
+ * @param index - The index of the token in its raw list
+ *
+ */
 export const TokenActionPanel = ({
   showDetailAction = true,
   token,

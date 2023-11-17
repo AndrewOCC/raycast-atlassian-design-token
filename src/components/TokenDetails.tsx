@@ -1,10 +1,20 @@
 import { Detail } from "@raycast/api";
 import { light, dark } from "@atlaskit/tokens/tokens-raw";
 import { TokenActionPanel } from "./TokenActionPanel";
+import { stateColorMap } from "../constants";
 
+/**
+ *
+ * TokenDetails
+ *
+ * A component used to render the detail view for a token.
+ * @param token - The token metadata (from its default theme)
+ * @param index - The index of the token in its raw list
+ *
+ */
 export const TokenDetails = ({ token, index }: { token: (typeof light)[0]; index: number }) => (
   <Detail
-    // navigationTitle={token.cleanName}
+    navigationTitle={token.cleanName}
     markdown={`
   # ${token.cleanName}
   ${token.attributes.description}
@@ -12,10 +22,10 @@ export const TokenDetails = ({ token, index }: { token: (typeof light)[0]; index
   ${
     token.attributes.group === "paint"
       ? `
-  **atlassian-light**: ${token.value.toString()}
+  **atlassian-light**: \`${token.value.toString()}\` (\`${token.original.value}\`)
 
-  **atlassian-dark**: ${dark[index].value.toString()}`
-      : JSON.stringify(token.value)
+  **atlassian-dark**: \`${dark[index].value.toString()}\` (\`${dark[index].original.value}\`)`
+      : `\`${JSON.stringify(token.value)}\` (\`${token.original.value}\`) `
   }
   `}
     metadata={
@@ -89,9 +99,3 @@ export const TokenDetails = ({ token, index }: { token: (typeof light)[0]; index
     actions={<TokenActionPanel showDetailAction={false} token={token} index={index} />}
   />
 );
-const stateColorMap: { [index: string]: string } = {
-  active: "#7EE2B8",
-  deprecated: "#F5CD47",
-  deleted: "#42221F",
-  experimental: "#2B273F",
-};
