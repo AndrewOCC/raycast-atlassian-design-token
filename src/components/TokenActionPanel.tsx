@@ -21,8 +21,8 @@ export const TokenActionPanel = ({
   token: (typeof light)[0];
   index: number;
 }) => {
-  const darkValue = dark[index].value.toString();
-  const lightValue = token.value.toString();
+  const darkValue = dark[index].original.value.toString();
+  const lightValue = token.original.value.toString();
 
   return (
     <ActionPanel>
@@ -31,13 +31,13 @@ export const TokenActionPanel = ({
         title="Copy Name"
         icon={{ source: Icon.Text }}
         content={token.cleanName}
-        shortcut={{ modifiers: ["cmd"], key: "." }}
+        shortcut={{ modifiers: ["cmd", "shift"], key: "." }}
       />
       <Action.CopyToClipboard
-        title="Copy Code"
+        title={`Copy Code`}
         icon={{ source: Icon.Code }}
         content={`token('${token.cleanName}')`}
-        shortcut={{ modifiers: ["cmd", "shift"], key: "." }}
+        shortcut={{ modifiers: ["cmd", "shift"], key: "," }}
       />
       // Copy light/dark values if they exist
       {token.attributes.group === "paint" ? (
@@ -46,13 +46,13 @@ export const TokenActionPanel = ({
             title="Copy Light Value"
             icon={{ source: Icon.Sun }}
             content={lightValue}
-            shortcut={{ modifiers: ["cmd", "opt"], key: "," }}
+            shortcut={{ modifiers: ["cmd", "shift"], key: "l" }}
           />
           <Action.CopyToClipboard
             title="Copy Dark Value"
             icon={{ source: Icon.Moon }}
             content={darkValue}
-            shortcut={{ modifiers: ["cmd", "opt"], key: "." }}
+            shortcut={{ modifiers: ["cmd", "shift"], key: "d" }}
           />
         </>
       ) : (
@@ -60,12 +60,13 @@ export const TokenActionPanel = ({
           title="Copy Value"
           icon={{ source: Icon.TextInput }}
           content={token.value.toString()}
-          shortcut={{ modifiers: ["cmd", "opt"], key: "." }}
+          shortcut={{ modifiers: ["cmd", "ctrl"], key: "." }}
         />
       )}
       <Action.OpenInBrowser
         title="View on Atlassian Design System"
         url={`https://atlassian.design/components/tokens/all-tokens#${token.cleanName}`}
+        shortcut={{ modifiers: ["cmd"], key: "o" }}
       />
     </ActionPanel>
   );
