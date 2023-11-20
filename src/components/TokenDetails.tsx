@@ -16,16 +16,16 @@ export const TokenDetails = ({ token, index }: { token: (typeof light)[0]; index
   <Detail
     navigationTitle={token.cleanName}
     markdown={`
-  # ${token.cleanName}
+  # \`${token.cleanName}\`
   ${token.attributes.description}
   ## Value:
   ${
     token.attributes.group === "paint"
       ? `
-  **atlassian-light**: \`${token.value.toString()}\` (\`${token.original.value}\`)
+  atlassian-light: \`${token.original.value}\`
 
-  **atlassian-dark**: \`${dark[index].value.toString()}\` (\`${dark[index].original.value}\`)`
-      : `\`${JSON.stringify(token.value)}\` (\`${token.original.value}\`) `
+  atlassian-dark: \`${dark[index].original.value}\``
+      : `\`${JSON.stringify(token.original.value, null)}\``
   }
   `}
     metadata={
@@ -39,8 +39,9 @@ export const TokenDetails = ({ token, index }: { token: (typeof light)[0]; index
         </Detail.Metadata.TagList>
         <Detail.Metadata.Separator />
         <Detail.Metadata.Label title="Introduced" text={token.attributes.introduced} />
-        {token.attributes.state === "deprecated" && (
-          <>
+        {
+          // @ts-expect-error 'deprecated' is not in the type
+          token.attributes.deprecated && (
             <Detail.Metadata.Label
               title="Deprecated"
               text={
@@ -48,43 +49,36 @@ export const TokenDetails = ({ token, index }: { token: (typeof light)[0]; index
                 token.attributes.deprecated || "Unknown"
               }
             />
-            <Detail.Metadata.Label
-              title="Replacement"
-              text={
-                // @ts-expect-error 'replacement' is not in the type
-                token.attributes.replacement || "Unknown"
-              }
-            />
-          </>
-        )}
-        {token.attributes.state === "deleted" && (
-          <>
+          )
+        }
+        {
+          // @ts-expect-error 'deleted' is not in the type
+          token.attributes.deleted && (
             <Detail.Metadata.Label
               title="Deleted"
               text={
                 // @ts-expect-error 'deleted' is not in the type
-                token.attributes.deleted || "Unknown"
+                token.attributes.deleted
               }
             />
+          )
+        }
+        {
+          // @ts-expect-error 'replacement' is not in the type
+          token.attributes.replacement && (
             <Detail.Metadata.Label
               title="Replacement"
               text={
                 // @ts-expect-error 'replacement' is not in the type
-                token.attributes.replacement || "Unknown"
+                token.attributes.replacement
               }
             />
-          </>
-        )}
-        {token.attributes.state === "experimental" && (
-          <>
-            <Detail.Metadata.Label
-              title="Replacement"
-              text={
-                // @ts-expect-error 'replacement' is not in the type
-                token.attributes.replacement || "Unknown"
-              }
-            />
-            <Detail.Metadata.TagList title="State">
+          )
+        }
+        {
+          // @ts-expect-error 'replacement' is not in the type
+          token.attributes.suggest && (
+            <Detail.Metadata.TagList title="Suggested">
               {
                 // @ts-expect-error 'suggest' is not in the type
                 token.attributes.suggest.map((suggestion: string, index: number) => (
@@ -92,8 +86,8 @@ export const TokenDetails = ({ token, index }: { token: (typeof light)[0]; index
                 ))
               }
             </Detail.Metadata.TagList>
-          </>
-        )}
+          )
+        }
       </Detail.Metadata>
     }
     actions={<TokenActionPanel showDetailAction={false} token={token} index={index} />}
